@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "535390883975",
+    "firebase_url": "https://finfit-431b8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "finfit-431b8",
+    "storage_bucket": "finfit-431b8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535390883975:android:01800db83f50701716a822",
+        "android_client_info": {
+          "package_name": "com.example.finfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535390883975-7pk7ca8qei8obuo9o2dpiqa2qqcjqbut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.finfit",
+            "certificate_hash": "d02cc28bf6b5f7051f90a40ed166828ec6c86fe1"
+          }
+        },
+        {
+          "client_id": "535390883975-b25kgfeovprmupmsat050l7ptbq5eknc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn739IB-rV_yt6_hZ2yk4NtwgEQqdmHuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535390883975-b25kgfeovprmupmsat050l7ptbq5eknc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "535390883975-i2c4mssej4j3ssfqvna3bs68qjv3ip2m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finfit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
