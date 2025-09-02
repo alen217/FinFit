@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:finfit/foodrecommend.dart'; // Add this import for FoodRecommender
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class NutritionHomeScreen extends StatefulWidget {
   const NutritionHomeScreen({Key? key}) : super(key: key);
@@ -824,39 +825,43 @@ class _NutritionDetailsPageState extends State<NutritionDetailsPage> {
     super.dispose();
   }
 
-  Future<void> _searchFood(String query) async {
-    if (query.isEmpty) return;
-    
-    setState(() {
-      _isLoading = true;
-      _searchResults = [];
-      _selectedFood = null;
-      _imageUrl = null;
-    });
-    
-    try {
-      final apiUrl = 'https://api.calorieninjas.com/v1/nutrition?query=$query';
-      final response = await http.get(
-        Uri.parse(apiUrl),
-        headers: {
-          'X-Api-Key': 'kq5i2HIgfJAfjgi2mGvm6Q==U0AUPxf3nbjTqtFe',
-          'Content-Type': 'application/json',
-        },
-      );
-      
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        if (data.containsKey('items') && data['items'] is List) {
-          final nutritionItems = List<Map<String, dynamic>>.from(data['items']);
-          
-          if (nutritionItems.isNotEmpty) {
-            try {
-              final pexelsResponse = await http.get(
-                Uri.parse('https://api.pexels.com/v1/search?query=$query&per_page=1'),
-                headers: {
-                  'Authorization': 'MV2HEe45oV4oQ0O2h6M6b4okNvZS0tcl7cL8uiCSHYAgfEUidvx3rWLx'
-                },
-              );
+  // ...existing code...
+Future<void> _searchFood(String query) async {
+  if (query.isEmpty) return;
+
+  setState(() {
+    _isLoading = true;
+    _searchResults = [];
+    _selectedFood = null;
+    _imageUrl = null;
+  });
+
+  try {
+    final apiUrl = 'https://api.calorieninjas.com/v1/nutrition?query=$query';
+    final calorieNinjasApiKey = dotenv.env['CALORIE_NINJAS_API_KEY'];
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {
+        'X-Api-Key': calorieNinjasApiKey ?? '',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      if (data.containsKey('items') && data['items'] is List) {
+        final nutritionItems = List<Map<String, dynamic>>.from(data['items']);
+
+        if (nutritionItems.isNotEmpty) {
+          try {
+            final pexelsApiKey = dotenv.env['PEXELS_API_KEY'];
+            final pexelsResponse = await http.get(
+              Uri.parse('https://api.pexels.com/v1/search?query=$query&per_page=1'),
+              headers: {
+                'Authorization': pexelsApiKey ?? '',
+              },
+            );
+            // ...existing code...
               
               if (pexelsResponse.statusCode == 200) {
                 final pexelsData = json.decode(pexelsResponse.body);
